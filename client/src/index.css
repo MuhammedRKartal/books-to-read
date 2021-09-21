@@ -1,0 +1,47 @@
+body {
+  background: antiquewhite;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+#main h1{
+  color:black;
+  font-family:'Courier New', Courier, monospace;
+  text-align: center;
+}
+
+body h2{
+  margin-bottom: -20px;
+}
+
+.book-list{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  
+}
+
+.book-list-item{
+  margin: 20px;
+  border: 1px solid black;
+  padding:10px;
+  border-radius: 6px;
+  background: cadetblue;
+  font-size: large;
+  font-weight: bold;
+}
+
+.book-details{
+  padding: 10px 10px 25px 10px;
+  text-align: center;
+}
+
+.author-books{
+  display:flex;
+  flex-direction: column;
+  flex-wrap:wrap;
+}
+
+.add-book{
+  align-items: center;
+  
+}
