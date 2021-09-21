@@ -6,7 +6,10 @@ import {getBooksQuery} from '../queries/queries';
 import BookDetails from './BookDetails'
 
 
-class BookList extends Component{
+const UserContext = React.createContext();
+
+
+export class BookList extends Component{
     constructor(props){
         super()
         this.state={
@@ -32,13 +35,21 @@ class BookList extends Component{
     render(){   
         return(
             <div>
+                <UserContext.Provider value={this.state}>
+                    {this.props.children}
+                </UserContext.Provider>
                 <div className='book-list'>
                     {this.showBooks()}
                 </div>
                 <BookDetails bookName= {this.state.selected}/>
             </div>
+            /*<div>
+                
+            </div>*/
         )
     }
 }
+
+const UserConsumer = UserContext.Consumer;
 
 export default graphql(getBooksQuery) (BookList);

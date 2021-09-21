@@ -4,6 +4,7 @@ import {ApolloProvider} from 'react-apollo'; //clienti belirleyebilmek kodların
 
 import BookList from './components/BookList';
 import AddBook from './components/AddBook';
+import RemoveBook from './components/RemoveBook';
 
 
 //apolloproviderin kullanacağı client
@@ -19,6 +20,7 @@ class App extends Component {
           <h1>Books to Read</h1>
           <BookList/>
           <AddBook/>
+          <RemoveBook/>
         </div>
       </ApolloProvider>
     );
