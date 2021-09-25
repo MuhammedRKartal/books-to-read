@@ -6,6 +6,10 @@ const User = require('../Models/user');
 const { findOne } = require('../Models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+//const {authorize} = require('../middlewares/is-authenticated');
+const Role = require('../helpers/role');
+
+
 
 //object type ile databasedeki türü belirtiriz, string ile doğrudan tür
 const {GraphQLObjectType,
@@ -67,6 +71,21 @@ const AuthorType = new GraphQLObjectType({
     })
 })
 
+
+// RETURN ICERISINE GIRMIYOR
+//authorization by roles
+function authorize (role){
+    return (req,res,next)=>{
+        if(req.user.role !== role){
+            res.status(401);
+        }
+        next();
+    }
+}
+
+
+
+
 //rootquery
 const RootQuery = new GraphQLObjectType({
     name:"RootQueryType",
@@ -90,7 +109,14 @@ const RootQuery = new GraphQLObjectType({
                 id:{type:GraphQLID}
             },
             resolve: async(parent,args)=>{
-                return await Author.findById(args.id);
+                const x = authorize("Admin");
+                if (x){
+                    return await Author.findById(args.id);
+                }
+                else{
+                    throw new Error('Invalid Permission');
+                }
+                
             }
         },
         //return all books
@@ -148,6 +174,7 @@ const Mutation= new GraphQLObjectType({
                 age:{type:new GraphQLNonNull(GraphQLInt)}
             },
             resolve(parent,args){
+                
                 let yazar = new Author({
                     name:args.name,
                     age:args.age    
